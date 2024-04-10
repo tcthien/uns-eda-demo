@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://admin:abcxyz@localhost:53031/common_local"
+      auto-index-creation: true
+
+logging:
+  level:
+    com.tma: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.integration: WARN
+    org.springframework.data.mongodb.repository: DEBUG
+    org.springframework.cloud.stream.messaging: DEBUG

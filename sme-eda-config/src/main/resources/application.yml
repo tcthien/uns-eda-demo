@@ -1,0 +1,35 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /config-svc
+  error:
+    include-binding-errors: always
+    include-message: always
+  server-header:
+
+spring:
+  application:
+    name: appconfig
+
+  profiles:
+    active: native
+    
+  security:
+    user:
+      name: admin
+      password: abcxyz
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "/mnt/ubuntu-data/sources/training/uns-eda-demo/_infrastructure/environments/local"
+# Encrypted private key for spring cloud config
+encrypt:
+  key: ${UNS__APPCONFIG_SERVER__CONFIG_SECRET:neuqPjEXvPSJ3DS28FS3bT3e2xTKB84N}
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.integration: WARN
+    org.springframework.data.mongodb.repository: DEBUG
+    org.springframework.cloud.stream.messaging: DEBUG

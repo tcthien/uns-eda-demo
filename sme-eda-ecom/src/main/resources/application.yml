@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ecom-svc
+  error:
+    include-binding-errors: always
+    include-message: always
+  server-header:
+
+spring:
+  application:
+    name: ecom
+  profiles:
+    include:
+    - messaging
+  config:
+    import: optional:configserver:http://admin:abcxyz@localhost:8090/config-svc/

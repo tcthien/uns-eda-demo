@@ -1,0 +1,17 @@
+server:
+  port: 8070
+  servlet:
+    context-path: /fulfillment-svc
+  error:
+    include-binding-errors: always
+    include-message: always
+  server-header:
+
+spring:
+  application:
+    name: fulfillment
+  profiles:
+    include:
+    - messaging
+  config:
+    import: optional:configserver:http://admin:abcxyz@localhost:8090/config-svc/

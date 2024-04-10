@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        fulfillmentEventConsumer-in-0:
+          destination: fulfillment-events
+          binder: common_rabbit
+          group: fulfillmentEventConsumer
+        fulfillmentStateTransfer-out-0:
+          destination: fulfillmentStateTransfer-events
+          binder: common_rabbit
+          group: fulfillmentStateTransfer-sender
+        ecomEventConsumer-in-0:
+          destination: ecomStateTransfer-events
+          binder: common_rabbit
+          group: ecomStateTransfer-sender
+      binders:
+        common_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: admin
+                password: abcxyz
+                virtual-host: /
+      instance-count: 1

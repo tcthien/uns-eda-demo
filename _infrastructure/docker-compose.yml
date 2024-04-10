@@ -1,0 +1,68 @@
+version: '3.5'
+services:
+  uns-rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "uns-rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "abcxyz"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+    - "uns_rabbitmq:/etc/rabbitmq"
+    #- "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
+    #- "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
+    #- "./autocluster-0.4.1.ez:/usr/lib/rabbitmq/lib/rabbitmq_server-3.5.5/plugins/autocluster-0.4.1.ez"
+    ports:
+    - "15672:15672"
+    - "5672:5672"
+    restart: always
+    networks:
+      uns-infra-network:
+        aliases:
+        - uns-uns-rabbitmq
+
+  uns-mongodb-primary:
+    image: bitnami/mongodb:5.0.13
+    environment:
+    - MONGODB_ROOT_PASSWORD=abcxyz
+    - MONGODB_USERNAME=admin
+    - MONGODB_PASSWORD=abcxyz
+    - MONGODB_DATABASE=common_local
+    volumes:
+    - 'uns_mongodb:/bitnami/mongodb'
+    ports:
+    - 53031:27017
+    restart: always
+    networks:
+      uns-infra-network:
+        aliases:
+        - uns-mongodb-primary
+
+  uns-mongodb-fulfillment:
+    image: bitnami/mongodb:5.0.13
+    environment:
+    - MONGODB_ROOT_PASSWORD=abcxyz
+    - MONGODB_USERNAME=admin
+    - MONGODB_PASSWORD=abcxyz
+    - MONGODB_DATABASE=common_local
+    volumes:
+    - 'uns_mongodb_fulfillment:/bitnami/mongodb'
+    ports:
+    - 54031:27017
+    restart: always
+    networks:
+      uns-infra-network:
+        aliases:
+        - uns-mongodb-fulfillment
+volumes:
+  uns_mongodb:
+    driver: local
+  uns_mongodb_fulfillment:
+    driver: local
+  uns_rabbitmq:
+    driver: local
+
+networks:
+  uns-infra-network:
+    driver: bridge

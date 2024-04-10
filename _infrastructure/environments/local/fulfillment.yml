@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://admin:abcxyz@localhost:54031/common_local"
+      auto-index-creation: true
+
+logging:
+  level:
+    com.tma: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.integration: WARN
+    org.springframework.data.mongodb.repository: DEBUG
+    org.springframework.cloud.stream.messaging: DEBUG
+
+rest-client:
+  ecom-svc:
+    url: "http://localhost:8080/ecom-svc"
